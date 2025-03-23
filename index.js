@@ -7,20 +7,26 @@ async function getCat(c, catType = '') {
     try {
         let photoUrl;
 
-        if (!catType) photoUrl = `https://cataas.com/cat?t=${new Date().getTime()}`
-        else if (catType === 'gif') photoUrl = `https://cataas.com/cat/gif?t=${new Date().getTime()}`
-        else photoUrl = `https://cataas.com/cat/${catType}?t=${new Date().getTime()}`
-        await c.replyWithPhoto(photoUrl, {
-            caption: `Держи котэ 🐾`
-        })
+        if (!catType) {
+            photoUrl = `https://cataas.com/cat?t=${new Date().getTime()}`
+            await c.replyWithPhoto(photoUrl, { caption: `Держи котэ 🐾` })
+        }
+        else if (catType == 'gif') {
+            photoUrl = `https://cataas.com/cat/gif?t=${new Date().getTime()}`
+            await c.replyWithAnimation(photoUrl, { caption: `Держи котэ гифку 🐾` })
+        }
+        else {
+            photoUrl = `https://cataas.com/cat/${catType}?t=${new Date().getTime()}`
+            await c.replyWithPhoto(photoUrl, { caption: `Держи котэ 🐾` })
+        }
     } catch (e) {
-        console.error('Что-то не так с фото', e)
+        console.error('Что-то не так с файлом', e)
         await c.reply('Ещё раз давай')
     }
 }
 
 bot.start(async (ctx) => {
-    await ctx.reply('Что хочешь, сестрёнка?', Markup
+    await ctx.reply('Что хочешь, котолюб(-ка)?', Markup
         .keyboard([
             [
                 'Хочу любого котэ', 
